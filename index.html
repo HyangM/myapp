@@ -1,74 +1,85 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Document</title>
-    <link href="/styles/common_style.css" type="text/css" rel="stylesheet"> 
+    <link href="../styles/common_style.css" type="text/css" rel="stylesheet" />
     <style>
-    	 article {
-            background-color: lightyellow;
-            border: 1px solid black;
-            width: 500px;
-            margin: 15px auto;
-            padding: 10px;
-            border-radius: 10px;
-        }
-        
-        a>h3 {
-        	text-shadow: 3px 5px 2px red;
-        }
+      article {
+        background-color: lightyellow;
+        border: 1px solid black;
+        width: 500px;
+        margin: 15px auto;
+        padding: 10px;
+        border-radius: 10px;
+      }
+
+      a > h3 {
+        text-shadow: 3px 5px 2px red;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div id="container">
-        <header>
-        	<div id="logo">
-        		<a href="/"><img src="/images/logo.jpg" width="200" height="50"></a>
-        	</div>
-        	<div id="join">
-        		<a href="/member/join.html">회원가입</a>
-        		<a href="/member/login.html">로그인</a>
-        	</div>
-        	
-        	<nav id="header-menu">
-        		<ul>
-        			<li><a href="/chat/chat.html">채팅</a></li>
-        			<li><a href="/board/board.html">게시판</a></li>
-        			<li>메뉴1</li>
-        			<li>메뉴2</li>
-        			<li>메뉴3</li>
-        		</ul>
-        	</nav>
-        </header>
-        <nav id="side-menu">
-                <img src="/images/nav2.jpg"></nav>
-        <section>
-            <article>
-                <a href="/board/boardDetail.html"><h3>펭펭</h3></a>
-                <hr>
-                <img src="/images/1.png" width="300" height="100">
-            </article>
-            <article>
-                <a href="/board/boardDetail02.html"><h3>펭수 탄생과정</h3></a>
-                <hr>
-                <video src="/media/pp.mp4" width="320" height="200" controls autoplay></video>
-            </article>
-        </section>
-        <footer></footer>
-    </div>
-    
-    <span id="slide">≡</span>
-    <nav id="slide-menu">
-        <ul>
+      <header>
+        <div id="logo">
+          <a href="/"
+            ><img src="../images/logo.jpg" width="200" height="50"
+          /></a>
+        </div>
+        <div id="join">
+          <a href="../member/join.html">회원가입</a>
+          <a href="../member/login.html">로그인</a>
+        </div>
+
+        <nav id="header-menu">
+          <ul>
+            <li><a href="../chat/chat.html">채팅</a></li>
+            <li><a href="../board/board.html">게시판</a></li>
             <li>메뉴1</li>
             <li>메뉴2</li>
             <li>메뉴3</li>
-            <li>메뉴4</li>
-            <li>메뉴5</li>
-        </ul>
-    </nav>
-    <div id="curtain">커튼</div>    <!-- 가로,세로가 없으면 화면상에서 보이지 않음.-->
+          </ul>
+        </nav>
+      </header>
+      <nav id="side-menu">
+        <img src="../images/nav2.jpg" />
+      </nav>
 
-	<script src="/scripts/common_script.js"></script>
-</body>
+      <section>
+        <article>
+          <a href="../board/boardDetail.html"><h3>펭펭</h3></a>
+          <hr />
+          <img src="../images/1.png" width="300" height="100" />
+        </article>
+        <article>
+          <a href="../board/boardDetail02.html"><h3>펭수 탄생과정</h3></a>
+          <hr />
+          <video
+            src="../media/pp.mp4"
+            width="320"
+            height="200"
+            controls
+            autoplay
+          ></video>
+        </article>
+      </section>
+      <footer></footer>
+    </div>
+
+    <span id="slide">≡</span>
+    <nav id="slide-menu">
+      <ul>
+        <li>메뉴1</li>
+        <li>메뉴2</li>
+        <li>메뉴3</li>
+        <li>메뉴4</li>
+        <li>메뉴5</li>
+      </ul>
+    </nav>
+    <div id="curtain">커튼</div>
+    <!-- 가로,세로가 없으면 화면상에서 보이지 않음.-->
+
+    <script src="../scripts/common_script.js"></script>
+  </body>
 </html>
