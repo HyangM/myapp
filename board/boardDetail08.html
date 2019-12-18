@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link href="/styles/common_style.css" type="text/css" rel="stylesheet">     
+    <style>
+
+        article {
+            background-color: lightyellow;
+            border: 1px solid black;
+            width: 500px;
+            margin: 15px auto;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        
+        article.comment {
+        	width: 500px;
+        	background-color: white;
+        	padding: 10px;
+        	margin: 0 auto;
+        	border-radius: 0;
+        	border-left-width: 0;
+        	border-right-width: 0;
+        	border-top-width: 0;
+        	border-bottom-style: dotted;
+        }
+        
+        span#span-comment {
+        	display: inline-block;
+        	width: 70px;
+        	height: 23px;
+        	border: 1px solid gray;
+        	text-align: center;
+        	font-size: 13px;
+        	font-weight: bold;
+        	background-color: white;
+        	cursor: pointer;
+        }
+        
+        span#span-comment:active {
+        	background-color: orange;
+        	position: relative;
+        	top: 1px;
+        	left: 1px;
+        }
+        
+        div#comment-area {
+        	margin-top: 20px;
+        	padding: 10px;
+        	border-top: 1px solid gray;
+        	border-bottom: 1px solid gray;
+        	background-color: lightgray;
+        	display: none;
+        }
+        
+        div#comment-write {
+        	border: 1px solid gray;
+        	padding: 20px;
+        	background-color: white;
+        	margin-top: 20px;
+        }
+        
+        div#comment-list {
+        	padding: 10px;
+        }
+    	section {
+    		height: 540px;
+    	}
+    </style>
+</head>
+<body>
+    <div id="container">
+        <header>
+        	<div id="logo">
+        		<a href="/"><img src="/images/logo.jpg" width="200" height="50"></a>
+        	</div>
+        	<div id="join">
+        		<a href="/member/join.html">회원가입</a>
+        		<a href="/member/login.html">로그인</a>
+        	</div>
+        	
+        	<nav id="header-menu">
+        		<ul>
+        			<li><a href="/chat/chat.html">채팅</a></li>
+        			<li><a href="/board/board.html">게시판</a></li>
+        			<li>메뉴1</li>
+        			<li>메뉴2</li>
+        			<li>메뉴3</li>
+        		</ul>
+        	</nav>
+        </header>
+        <nav id="side-menu">
+                <img src="/images/nav2.jpg"></nav>
+        <section>
+            <article>
+                <h3>퇴계이황</h3>
+                <div>2019. 11. 29 오후 12:30</div>
+                <hr>
+<pre>
+퇴계 이황(退溪 李滉, 1501~1570년)이 살아간 16세기는
+조선 지성사에서 볼 때 사림(士林)의 성장기로 규정할 수 있다. 
+계속적인 사화를 겪는 과정에서 사림의 학문은 성숙하고, 학문하는 과정의 
+치열성은 사림의 세를 전국적으로 확장하게 만든 것이다. 
+사(士)란 성리학을 전공하여 그 이념을 자기화하고 실천하는 선비이며, 
+사림이란 선비의 복수 개념이다. 이들은 선비로서 수기(修己)하고 학자 관료인 
+사대부가 되어 치인(治人)하는 것을 정로(正路)로 삼았다. 그러나 이황이 19세 되던 해에 일어난 
+기묘사화는 그의 평생을 소극적인 처세로 나아가게 하는 계기가 된다.
+</pre>
+            </article>
+            
+            <span id="span-comment">댓글 ∨</span>
+            <div id="comment-area">
+            	<div id="comment-list"></div>
+            	<div id="comment-write">
+            		<form id="frm">
+            		이름 : <input type="text" name="name"><br>
+            		댓글내용 : <br>
+            		<textarea rows="3" cols="50" name="content"></textarea>
+            		<span id="char-counter">0/100</span><br>
+            		<button type="submit" id="btnReg">등록</button>
+            		</form>
+            	</div>
+            </div>
+        </section>
+        <footer></footer>
+    </div>
+    
+    <span id="slide">≡</span>
+    <nav id="slide-menu">
+        <ul>
+            <li>메뉴1</li>
+            <li>메뉴2</li>
+            <li>메뉴3</li>
+            <li>메뉴4</li>
+            <li>메뉴5</li>
+        </ul>
+    </nav>
+    <div id="curtain">커튼</div>    <!-- 가로,세로가 없으면 화면상에서 보이지 않음.-->
+    
+    <script src="/scripts/jquery-3.4.1.min.js"></script>
+	<script src="/scripts/common_script.js"></script>
+	<script>
+		function deleteComment(bnum, cnum, btn) {
+			$.ajax({
+				url: 'deleteComment.jsp',
+				data: { bnum: bnum, cnum: cnum }, 
+				success: function (data) {
+					console.log(data);
+					if (data > 0) {
+    					let commentArticle = btn.parentElement.parentElement;	//article를 가리킨다.
+    					//showComments에 있는 '삭제'버튼을 눌렀을 때 article에서 삭제되게끔 하기위한 작업
+    					//button의 부모(div/parentElement), div의 부모(article/parentElement)
+    					objCommentList.removeChild(commentArticle);
+    				}else {
+    					alert('댓글번호 '+ cnum + ' 삭제 실패했습니다..');
+    				}
+				}
+			});
+			
+			
+		} //deleteComment()
+	
+		function showComments(array) {
+			let str = '';
+			for (let comment of array) {
+				//str += comment.bnum + ', '+ comment.cnum+', '+comment.name+', '+comment.content + ', '+comment.regDate + '<br>';
+				
+				str += '<article class="comment">';
+    			str += '<div class="comment-writer">' + comment.name + '</div>';
+    			str += '<div class="comment-content">' + comment.content + '</div>';
+    			str += '<div class="comment-regdate">' + comment.regDate + '</div>';
+    			
+    			str += '<div class="comment-control">';
+    			str += '<button type="button" class="comment-delete" data-bnum="'+comment.bnum+'" data-cnum="'+comment.cnum+'">';
+    			//str += '<button type="button" class="comment-delete" onclick="deleteComment(comment.bnum, comment.cnum, this);">';
+    						// onclick의 ""안에 있던 내용을 function 으로 불러다 로직을 짧게 사용가능함. (location='deleteComment.jsp?bnum='+comment.bnum+'&cnum='+comment.cnum;)
+    			str += '삭제';
+    			str += '</button>';
+    			str += '</div>';
+    			
+    			str += '</article>';
+			}
+			
+			objCommentList.innerHTML = str;
+		} //showComments()
+	
+		function getCommentList() {
+			$.ajax({
+				url: 'selectAllByBnum.jsp',
+				data: { bnum: 8 }, // 'bnum=' + 1
+				success: function (arr) {
+					console.log(arr);
+					showComments(arr);
+				}
+			});
+			
+		} //getCommentList()
+	</script>
+	<script>
+		var objCommentList = document.querySelector('div#comment-list');
+		var objContent = document.querySelector('textarea[name=content]');
+		var objSpanCounter = document.querySelector('span#char-counter');
+		var objSpanBtn = document.querySelector('span#span-comment');
+		var objCommentArea = document.querySelector('div#comment-area');
+		var btnReg = document.getElementById('btnReg');
+		
+		var isStretch = false; //span버튼 펼쳐짐 여부 (default 펼쳐지지 않음 상태)
+		
+		objSpanBtn.addEventListener('click', function (event) {
+			if (isStretch){
+				objCommentArea.style.display = 'none';
+				objSpanBtn.innerHTML = '댓글 ∨';
+				isStretch = false;
+			}else{
+				objCommentArea.style.display = 'block';
+				objSpanBtn.innerHTML = '댓글 ∧';
+				isStretch = true;
+			}
+		});
+		
+		objContent.addEventListener('keyup', function (event) {
+			//event.target.value
+			//var str = objContent.value.length + '/100';
+			var strLength = objContent.value.length;
+			if(strLength > 100) {
+				objSpanCounter.style.color = 'red';				
+			}else {
+				objSpanCounter.style.color = 'green';
+			}
+			objSpanCounter.innerHTML = strLength + '/100';
+		});
+		
+		btnReg.addEventListener('click', function (event) {
+			// $ : jquery함수
+			var str = $('#frm').serialize()+'&bnum=8';	// 'name=홍길동&content=댓글내용'
+			console.log(str);
+			// 위와 같이 결과를 봤을 때 영문은 그대로 표현되나 한글은 알아보기가 힘듬. 문자가 깨진 것은 아니고 보안이 되어있을 뿐.
+			
+			$.ajax({
+				url: 'insertComment.jsp',
+				data: str,	//data는 변수 아님(약속된 key값). str은 변수 
+				method: 'POST',
+				success: function (data) { //data는 위에 있는 data와 다른 값
+					if(data > 0){
+						getCommentList();
+					}else {
+						alert('댓글 등록에 실패했습니다.')
+					}
+				}	
+				// success: 요청에 따른 응답이 성공했을 때 자동으로 호출함
+				// url에 있는 jsp로 data에 있는 str이 insert가 성공하면 success를 호출함.
+			});
+			
+		});
+		//동적 이벤트 바인딩
+		$(document).on('click', 'button.comment-delete', function (event) {
+			//event.target 클릭한버튼
+			//this 클릭한 버튼
+			let bnum = $(this).data('bnum');
+			let cnum = $(this).data('cnum');
+			console.log('bnum = '+bnum + ' cnum = '+cnum);
+			
+			let result = confirm(cnum + '번 댓글을 삭제할까요?');
+			
+			if (result == false) {
+				return;
+			}
+			
+			deleteComment(bnum, cnum, this);
+		});
+		//jquery를 이용한 이벤트 처리. (document)현재문서에 대해서 (on)이벤트를 연결하겠다.
+		getCommentList();
+	</script>
+</body>
+</html>

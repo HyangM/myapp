@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <!-- css적용방법 1 책 p.163 --> 
+    <link href="/styles/common_style.css" type="text/css" rel="stylesheet"> 
+    <style>	
+    	/* css적용방법 2
+    	  @import url(styles/common_style.css)			    	
+    	*/
+    	 div#messages {
+    		width: 500px;
+    		height: 385px;
+    		margin-left: auto;
+    		margin-right: auto;
+    		padding: 10px;
+    		background-color: lightyellow;
+    		border: 1px solid black;
+    		border-radius: 20px;
+    		overflow: auto;
+    	}
+    	div#control {
+    		width: 400px;
+    		margin-left: auto;
+    		margin-right: auto;
+    		padding: 10px;
+    	}
+    	
+    	span#nickname {
+    		font-weight: bold;
+    		font-style: italic;
+    		font-size: 1.5em;
+    	}
+    </style>
+</head>
+<body>
+    <div id="container">
+        <header>
+        	<div id="logo">
+        		<a href="/"><img src="/images/logo.jpg" width="200" height="50"></a>
+        	</div>
+        	<div id="join">
+        		<a href="/member/join.html">회원가입</a>
+        		<a href="/member/login.html">로그인</a>
+        	</div>
+        	
+        	<nav id="header-menu">
+        		<ul>
+        			<li><a href="/chat/chat.html">채팅</a></li>
+        			<li><a href="/board/board.html">게시판</a></li>
+        			<li>메뉴1</li>
+        			<li>메뉴2</li>
+        			<li>메뉴3</li>
+        		</ul>
+        	</nav>
+        </header>
+        <nav id="side-menu">
+                <img src="/images/nav2.jpg"></nav>
+        <section>
+        	<h2>채팅방</h2>
+        	<hr>
+			<div id="messages"></div>
+			
+			<div id="control">
+				닉네임 : <span id="nickname">펭수</span>
+				<input type="text" id="message">
+				<button type="button" id="btnSend">전송</button>
+			</div>
+        </section>
+        <footer></footer>
+    </div>
+    
+    <span id="slide">≡</span>
+    <nav id="slide-menu">
+        <ul>
+            <li>메뉴1</li>
+            <li>메뉴2</li>
+            <li>메뉴3</li>
+            <li>메뉴4</li>
+            <li>메뉴5</li>
+        </ul>
+    </nav>
+    <div id="curtain">커튼</div>    <!-- 가로,세로가 없으면 화면상에서 보이지 않음.-->
+
+    <script src="/scripts/common_script.js"></script>
+    <script>
+    	function send() {
+		    if (objMessage.value == '') {
+					return;
+				}
+				let str = nickname + ' ▶ ' + objMessage.value + '<br>';
+				objMessages.innerHTML += str;
+				objMessage.value = '';
+	 			
+	 			objMessages.scrollTop = objMessages.scrollHeight;
+    	}
+    </script>
+    <script>
+		let objMessages = document.getElementById('messages');
+    
+		let objNick = document.getElementById('nickname');
+		let nickname = objNick.innerText;
+		
+		let objMessage = document.getElementById('message');
+		let btnSend = document.getElementById('btnSend');
+ 		
+ 		btnSend.addEventListener('click', function (event) {
+ 			send();
+ 		});
+ 		
+ 		objMessage.addEventListener('keydown', function (event) {
+ 			console.log(event.code);
+ 			console.log(event.key);
+ 			if (event.key == 'Enter') {
+ 				send();
+ 			}
+ 		});
+ 		
+ 		objMessage.focus();
+    </script>
+</body>
+</html>
